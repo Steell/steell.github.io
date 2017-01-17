@@ -7,5 +7,30 @@ executable site
   main-is:          site.hs
   build-depends:    base == 4.*
                   , hakyll == 4.7.*
+                  , aeson >= 0.9
+                  , text >= 1.2
   ghc-options:      -threaded
   default-language: Haskell2010
+
+executable fetch-data
+  main-is:          fetch-data.hs
+  build-depends:    base == 4.*
+                  , aeson >= 0.9
+                  , async >= 2.1
+                  , bytestring >= 0.10
+                  , formatting
+                  , wreq
+                  , lens
+                  , text
+                  , vector
+                  , mtl
+                  , exceptions
+  ghc-options:      -threaded
+  default-language: Haskell2010
+
+library
+    hs-source-dirs: .
+    build-depends:  base == 4.*
+                  , aeson >= 0.9
+                  , text
+    ghc-options:    -threaded -O2 -fwarn-tabs

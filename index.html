@@ -2,15 +2,18 @@
 title: Home
 ---
 
-<h2>Welcome</h2>
+<div id="music">
+     <h3>Music</h3>
+     $partial("templates/music-list.html")$
+</div>
 
-<img src="/images/haskell-logo.png" style="float: right; margin: 10px;" />
+<div id="games">
+     <h3>Games</h3>
+     $partial("templates/game-list.html")$
+</div>
 
-<p>Welcome to my blog!</p>
-
-<p>I've reproduced a list of recent posts here for your reading pleasure:</p>
-
-<h2>Posts</h2>
-$partial("templates/post-list.html")$
-
-<p>…or you can find more in the <a href="/archive.html">archives</a>.</p>
+<div id="posts">
+     <h3>Thoughts</h3>
+     $partial("templates/post-list.html")$
+     <p>…or you can find more in the <a href="/archive.html">archives</a>.</p>
+</div>
