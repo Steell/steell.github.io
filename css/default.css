@@ -14,7 +14,7 @@ body {
     margin-right: 20px;
 }
 
-@media (min-width: 692px) {
+@media (min-width: 696px) {
     .site-head {
         display: flex;
         align-items: baseline;
@@ -121,4 +121,9 @@ div.section h3 {
 #content div.figure img {
     margin: auto;
     display: block;
+}
+
+span#last-letter {
+    display: inline-block;
+    transform: translateY(.18em);
 }
