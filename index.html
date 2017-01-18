@@ -2,18 +2,27 @@
 title: Home
 ---
 
-<div id="music">
-     <h3>Music</h3>
-     $partial("templates/music-list.html")$
+<div id="music" class="section">
+  <section class="section-head">
+    <div id="line"><hr /></div>
+    <h3>tunes</h3>
+  </section>
+  $partial("templates/music-list.html")$
 </div>
 
-<div id="games">
-     <h3>Games</h3>
-     $partial("templates/game-list.html")$
+<div id="games" class="section">
+  <section class="section-head">
+    <div id="line"><hr /></div>
+    <h3>distractions</h3>
+  </section>
+  $partial("templates/game-list.html")$
 </div>
 
-<div id="posts">
-     <h3>Thoughts</h3>
-     $partial("templates/post-list.html")$
-     <p>…or you can find more in the <a href="/archive.html">archives</a>.</p>
+<div id="posts" class="section">
+  <section class="section-head">
+    <div id="line"><hr /></div>
+    <h3>thoughts</h3>
+  </section>
+  $partial("templates/post-list.html")$
+  <p>…or you can find more in the <a href="/archive.html">archives</a>.</p>
 </div>

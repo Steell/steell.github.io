@@ -1,9 +1,41 @@
-/*body {
-    color: black;
-    font-size: 16px;
-    margin: 0px auto 0px auto;
-    width: 600px;
-}*/
+body {
+//    color: black;
+//    font-size: 16px;
+//    margin: 0px auto 0px auto;
+//    width: 600px;
+}
+
+#header {
+    margin-top: 10px;
+    margin-bottom: 25px;
+}
+
+#logo {
+    margin-right: 20px;
+}
+
+@media (min-width: 692px) {
+    .site-head {
+        display: flex;
+        align-items: baseline;
+        justify-content: space-between;
+    }
+}
+
+.section-head {
+    display: flex;
+    align-items: center;
+}
+
+div#line {
+    flex-grow: 1;
+    margin-right: 25px;
+}
+
+div#line hr {
+    margin-top: 0px;
+    margin-bottom: 0px;
+}
 
 div#header hr {
     //border-bottom: 2px solid black;
@@ -11,43 +43,35 @@ div#header hr {
     // padding: 12px 0px 12px 0px;
 }
 
-div#logo {
-    text-align: center;
+#logo h1 {
+    margin-bottom: 0px;
 }
 
 div#logo a {
-    color: #222;
+    color: inherit;
     //float: left;
     //font-size: 18px;
-    //font-weight: bold;
     text-decoration: none;
+    //font-weight: bold;
 }
 
-div#logo h1 {
-    margin-bottom: 0rem;
+div.section {
+    margin-bottom: 20px;
 }
 
-div#navigation {
-    text-align: center;
-}
-
-div#header #navigation a {
-    color: #222;
+div#navigation a {
+    //color: #222;
+    opacity: 0.8;
     font-size: 18px;
     font-weight: bold;
-    //margin-left: 12px;
+    margin-left: 12px;
     text-decoration: none;
-    text-transform: uppercase;
+    text-transform: lowercase;
 }
 
 div#music ul, div#games ul {
     list-style: none;
     margin: 0;
-}
-
-div#content h3 {
-    margin: 0;
-    margin-bottom: 5px;
 }
 
 p.caption {
@@ -61,10 +85,11 @@ div#footer {
     font-size: 12px;
     //margin-top: 30px;
     //padding: 12px 0px 12px 0px;
-    text-align: right;
+    text-align: center;
 }
 
 div#footer hr {
+    margin-top: 5rem;
     margin-bottom: 1rem;
 }
 
@@ -77,8 +102,23 @@ h2 {
     font-size: 20px;
 }*/
 
-div.info {
-    color: #555;
-    font-size: 14px;
+div.section h3 {
+    text-align: right;
+    margin: 0;
+    margin-bottom: 5px;
+}
+
+.info h2 {
+    text-align: right;
+}
+
+.date {
+    color: #999;
     font-style: italic;
+    text-align: right;
+}
+
+#content div.figure img {
+    margin: auto;
+    display: block;
 }

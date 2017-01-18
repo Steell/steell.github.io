@@ -17,7 +17,7 @@ Part 1 of this tutorial will give us a very basic interactive application that w
 
 You can access the [completed code on GitHub](https://github.com/Steell/FSharpReactiveTutorial/tree/Part1-DraggableRectangle).
 
-## Step 1: Create our Project
+### Step 1: Create our Project
 
 To simplify things, we can use download a project template from the template browser in Visual Studio that is setup for an empty F# WPF application. The name of the template we want is **F# Empty Windows App (WPF)**, but searching for "f# wpf" should make it appear as one of the top results.
 
@@ -27,7 +27,7 @@ Using this template may cause a new Type Provider security warning window to app
 
 The template will put a few files in the Project by default. The ones we're interested in are `MainWindow.xaml` where we will define the View of the application, and `App.fs` where we will program the behavior of the application.
 
-## Step 2: Define our UI View
+### Step 2: Define our UI View
 
 Inside of `MainWindow.xaml` we will define the UI Components of our application. Since the goal is to have a Rectangle that we can drag around, all we really need is a `Canvas` that contains a Rectangle. I slightly increased the size of the window, and then added a `Canvas` with a 100x100 black Rectangle inside of it.
 
@@ -35,13 +35,13 @@ Inside of `MainWindow.xaml` we will define the UI Components of our application.
 
 The two components we're really concerned with manipulating are the Canvas and the Rectangle, so I gave them both names so that they can be accessed via F#. The Canvas will be accessible through the Canvas property of the MainWindow instance, and the Rectangle through the Rectangle property.
 
-## Step 3: Setup our Application Logic
+### Step 3: Setup our Application Logic
 
 Looking at the code the template gave us, we see that there is a `loadWindow` function where a `MainWindow` is created and its `Root` property is returned. Like the comment says, this is where we can write awesome code that can access our XAML elements.
 
 The eventual goal of the exercise is to be able to drag around the rectangle and have its position update as the mouse pointer moves. To keep things simple, lets try to get a basic prototype working first.
 
-## Step 3a: Clicking anywhere on the Canvas will move the rectangle to that position
+#### Step 3a: Clicking anywhere on the Canvas will move the rectangle to that position
 
 This is pretty simple to do, especially if you're already familiar with events. The idea is:  when the `Canvas.MouseDown` event is triggered, get the position of the mouse and move the rectangle the that position.
 
@@ -95,7 +95,7 @@ let subscription =
 
 So now you can try to compile and run the program again, and see that it's working exactly the way it was before we changed the code, which is a good thing. You may be wondering what the point of changing the code was. Besides demonstrating what the data flow looks like, it also makes the code a lot more modular, which is useful when you're working on UI applications.
 
-## Step 3b: Only allow left-clicks
+#### Step 3b: Only allow left-clicks
 
 Right now the rectangle will move to where the cursor is when the user clicks any of the mouse buttons. Let's change that so that it only moves if the user clicks the left mouse button. We can quickly define a function that can check that from a `MouseButtonEventArgs` instance:
 
@@ -116,7 +116,7 @@ let subscription =
 
 If you compile and run at this point, you should see that the rectangle only moves when clicking the left mouse button in the `Canvas`. Using any of the other buttons will result in nothing happening. This is due to how `Observable.filter` works: all data coming into the filter is passed through the given function, in this case `is_left_click`. If the function returns true, the data is passed along the stream. If it returns false, it is stopped and the rest of the stream will not receive the data.
 
-## Step 3c: Modify prototype to allow for dragging
+#### Step 3c: Modify prototype to allow for dragging
 
 Now that we have our prototype working and understand how we can express data flow from events into handlers, we can implement actual dragging. A drag operation actually requires some state management: we'll need a flag that indicates whether or not the mouse is being held down, and we'll use this flag to determine whether or not we should be updating the rectangle's position as the mouse moves. The question is, if we're avoiding mutation, how do we properly handle this kind of stateful interaction?
 
@@ -215,7 +215,7 @@ let subscription =
 
 At this point, you should be able to compile and run the application. When you left-click on the rectangle and move the mouse without releasing the button, the Rectangle will follow the cursor!
 
-## Step 3d: Perform drag while keeping the rectangle in the same position relative to the cursor
+#### Step 3d: Perform drag while keeping the rectangle in the same position relative to the cursor
 
 Currently, no matter where you click on the Rectangle, as soon as you move the mouse it moves so that the top-left corner is under the cursor. To demonstrate how straightforward it is to modify our workflow, let's fix this.
 
@@ -269,7 +269,7 @@ let start_stream =
 
 And that's it! If you compile and run the program, now when you drag the Rectangle, it doesn't snap to the top-left corner, but stays in the same position relative to the cursor.
 
-## Summary
+### Summary
 
 This tutorial has (hopefully) demonstrated the following key concepts:
 
