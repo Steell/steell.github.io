@@ -1,0 +1,76 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en">
+  <head>
+
+      <!-- Basic Page Needs
+      –––––––––––––––––––––––––––––––––––––––––––––––––– -->
+      <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+      <title>Steellworks - Elegant undo/redo recording with Reactive Extensions</title>
+      <meta name="description" content />
+      <meta name="author" content />
+
+      <!-- Mobile Specific Metas
+      –––––––––––––––––––––––––––––––––––––––––––––––––– -->
+      <meta name="viewport" content="width=device-width, initial-scale=1" />
+
+      <!-- FONT
+      –––––––––––––––––––––––––––––––––––––––––––––––––– -->
+      <link href="http://fonts.googleapis.com/css?family=Open+Sans:300,400,600" rel="stylesheet" type="text/css" />
+
+      <!-- CSS
+      –––––––––––––––––––––––––––––––––––––––––––––––––– -->
+      <link rel="stylesheet" href="../css/normalize.css" />
+      <link rel="stylesheet" href="../css/skeleton.css" />
+      <link rel="stylesheet" href="../css/syntax.css" />
+      <link rel="stylesheet" href="../css/default.css" />
+
+      <!-- Favicon
+      –––––––––––––––––––––––––––––––––––––––––––––––––– -->
+      <link rel="icon" type="image/png" href="images/favicon.png" />
+
+  </head>
+  <body>
+    <div class="container">
+      <div class="row">
+        <div id="header" class="site-head">
+          <div id="logo">
+            <a href="../"><h1>Steellwork<span id="last-letter">S</span></h1></a>
+          </div>
+          <div id="navigation">
+            <a href="../">Home</a>
+            <a href="../about.html">About</a>
+            <a href="../contact.html">Contact</a>
+            <a href="../archive.html">Archive</a>
+          </div>
+        </div>
+      </div>
+
+      <div id="content">
+        <div class="info">
+    <h2>Elegant undo/redo recording with Reactive Extensions</h2>
+    <span class="date">Posted on November 11, 2014
+    
+    </span>
+</div>
+
+<p>I’ve been spending a lot of time lately thinking about functional reactive programming. Since I’m currently primarily a .NET developer, the obvious library for this kind of thing is Reactive Extensions (Rx), which provides a lot of convenient methods (often called combinators) for working with IObservables and IObservers. While not quite as expressive as other FRP libraries (I’m looking at you, <a href="https://www.haskell.org/haskellwiki/Reactive-banana">reactive-banana</a>), it’s the best option for doing this sort of thing on .NET.</p>
+<p>To me, the holy grail of FRP is to implement a large-scale application using as little mutable state as possible. Rx goes a long way in making this possible, but there are several things which are still tricky to model using these tools. Because it’s a relatively new library, which is part of a relatively new paradigm (as far as mainstream adoption goes), there also isn’t a lot of information online about implementing more complicated functionality using only the concepts provided by this framework.</p>
+<p>The first difficulty I discovered was implementing undo and redo for an application developed with Rx. Specifically, how do you take several different observable sequences, record their values in a central place (the undo/redo stacks), and then at a later point when an undo or redo operation is invoked, replay those values in their original sequences? Is this even the correct way to approach the problem of undo and redo in Rx? Searching online yielded next to no information on the subject, and not just in Rx, but FRP in general. In my search, I found <a href="https://github.com/HeinrichApfelmus/reactive-banana/blob/master/reactive-banana-wx/src/CRUD.hs">a compelling example in Haskell that demonstrated how to define mutually recursive reactive circuits</a>, which would allow you to define a reactive value in terms of itself. This would allow me to combine the output of a stream with some form of undo/redo trigger, and then feed the result back into itself. Unfortunately, this kind of thing proved to be absurdly difficult to implement for Rx, because Haskell is lazy, <a href="http://stackoverflow.com/questions/491376/why-doesnt-net-c-optimize-for-tail-call-recursion">.NET has shoddy tail-call optimization</a>, and the library used in the example is <a href="https://blogs.janestreet.com/breaking-down-frp/">a completely different kind of reactive framework</a> (Rx is monadic, reactive-banana is applicative).</p>
+<p>So with minimal help from the internet, I set out to implement some kind of reactive undo/redo recorder that satisfies my original design goal: in the definition of an observable sequence, you can specify a point at which values are recorded for undo and redo. If the recorded value is then re-played via an undo or redo action, then that value is re-inserted into the observable sequence at the exact same point it was recorded.</p>
+<p>Here is the result: <a href="https://gist.github.com/Steell/e3c57b88abe2a708e526" class="uri">https://gist.github.com/Steell/e3c57b88abe2a708e526</a></p>
+<p>The source code is rather short and is heavily documented, so if you really want to understand how it works it shouldn’t be too difficult. At a high level, the actual undo and redo stacks are stored in an immutable structure. Since this structure changes over time, I represented its various states as an observable sequence. The state can be mutated in three ways: recording a new action, performing an undo, and performing a redo. When performing an undo or redo, not only is the stack updated, but the operation that was originally recorded (or its inverse) is performed. When recording data from a source stream, it is packaged in such a way that when an undo or redo occurs, that data is sent back into the stream via an Rx Subject.</p>
+<p>Below are some samples demonstrating some of the various ways you can use the ReactiveUndoRedoRecorder class.</p>
+<script src="https://gist.github.com/Steell/145785ba00289e18e799.js"></script>
+
+      </div>
+
+      <div id="footer" class="row">
+        <hr />
+        Site proudly generated by
+        <a href="http://jaspervdj.be/hakyll">Hakyll</a>
+      </div>
+
+    </div><!-- container -->
+  </body>
+</html>
