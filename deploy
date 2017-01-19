@@ -1,0 +1,36 @@
+#!/bin/bash
+
+# Temporarily store uncommited changes
+git stash
+
+# Verify correct branch
+# git checkout develop
+
+# Generate sha for commit msg
+COMMIT=$(git log -1 HEAD --pretty=format:%H)
+SHA=${COMMIT:0:8}
+
+# Build new files
+stack exec site rebuild
+
+pushd _deploy/
+
+# Get previous files
+git fetch --all
+git checkout -b master --track origin/master
+#git pull
+
+# Overwrite existing files with new files
+rsync -a --filter='P .git/' --filter='P CNAME' --delete-excluded ../_site/ .
+
+# Commit
+git add -A
+git commit -m "generated from $SHA"
+
+# Push
+git push origin master:master
+
+# Restoration
+git branch -D master
+popd
+git stash pop
