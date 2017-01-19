@@ -11,7 +11,7 @@ import           Types
 
 --------------------------------------------------------------------------------
 main :: IO ()
-main = hakyll $ do
+main = hakyllWith (defaultConfiguration { deployCommand = "./deploy" }) $ do
     match "images/*" $ do
         route idRoute
         compile copyFileCompiler
