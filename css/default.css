@@ -6,19 +6,23 @@ body {
 }
 
 #header {
-    margin-top: 10px;
-    margin-bottom: 25px;
+    margin-top: 25px;
+    margin-bottom: 20px;
 }
 
 #logo {
     margin-right: 20px;
+    white-space: nowrap;
 }
 
-@media (min-width: 696px) {
+@media (min-width: 760px) {
     .site-head {
         display: flex;
-        align-items: baseline;
+        align-items: center;
         justify-content: space-between;
+    }
+    #navigation {
+        margin-top: 10px
     }
 }
 
@@ -44,6 +48,7 @@ div#header hr {
 }
 
 #logo h1 {
+    font-size: 6em;
     margin-bottom: 0px;
 }
 
