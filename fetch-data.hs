@@ -45,6 +45,9 @@ instance HasSteamKey APIs where
 instance FromJSON SteamKey
 instance FromJSON LastFmKey
 instance FromJSON APIs
+instance ToJSON SteamKey
+instance ToJSON LastFmKey
+instance ToJSON APIs
 
 newtype LFMAlbum = LFMAlbum { unwrapAlbum :: MediaInfo }
     deriving (Show)
