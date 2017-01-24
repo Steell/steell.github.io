@@ -15,6 +15,15 @@ body {
     white-space: nowrap;
 }
 
+@media (min-width: 550px) {
+    .two.columns {
+        width: 16.66%;
+    }
+    .column, .columns {
+        margin-left: 0px;
+    }
+}
+
 @media (min-width: 760px) {
     .site-head {
         display: flex;
