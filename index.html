@@ -7,7 +7,11 @@ title: Home
     <div id="line"><hr /></div>
     <h3>tunes</h3>
   </section>
-  $partial("templates/music-list.html")$
+  <ul class="row">
+    $for(albums)$
+        $partial("templates/media-item.html")$
+    $endfor$
+  </ul>
 </div>
 
 <div id="games" class="section">
@@ -15,7 +19,11 @@ title: Home
     <div id="line"><hr /></div>
     <h3>distractions</h3>
   </section>
-  $partial("templates/game-list.html")$
+  <ul class="row">
+    $for(games)$
+        $partial("templates/media-item.html")$
+    $endfor$
+  </ul>
 </div>
 
 <div id="posts" class="section">
