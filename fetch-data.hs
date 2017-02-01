@@ -57,10 +57,12 @@ instance FromJSON LFMAlbum where
       LFMAlbum <$> (MediaInfo <$> v .: "url"
                               <*> (((.: "#text") . (! 2)) =<< (v .: "image"))
                               <*> artistAndAlbum)
-      where artistAndAlbum = do
-              album <- v .: "name"
-              artist <- (v .: "artist") >>= (.: "name")
-              return $ artist ++ " - " ++ album
+      where artistAndAlbum =
+              formatAlbumName <$> v .: "name"
+                              <*> ((v .: "artist") >>= (.: "name"))
+
+            formatAlbumName :: String -> String -> String
+            formatAlbumName album artist = artist ++ " - " ++ album
 
 data SteamGame = SG { name,img_icon_url,img_logo_url :: String
                     , appid,playtime_2weeks,playtime_forever :: Int
