@@ -12,7 +12,7 @@ data FitnessInfo = FI { milesBiked     :: Int
 data FitnessStats = FS { today,week,year :: FitnessInfo }
     deriving (Generic, Show)
 
-data MediaInfo = MediaInfo { url, artPath :: String -- or something else?
+data MediaInfo = MediaInfo { url, artPath, mediaName :: String -- or something else?
                            }
     deriving (Generic, Show)
 

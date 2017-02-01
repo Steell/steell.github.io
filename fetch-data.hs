@@ -55,7 +55,8 @@ newtype LFMAlbum = LFMAlbum { unwrapAlbum :: MediaInfo }
 instance FromJSON LFMAlbum where
     parseJSON (Object v) =
       LFMAlbum <$> (MediaInfo <$> v .: "url"
-                              <*> (((.: "#text") . (! 2)) =<< (v .: "image")))
+                              <*> (((.: "#text") . (! 2)) =<< (v .: "image"))
+                              <*> (v .: "name"))
 
 data SteamGame = SG { name,img_icon_url,img_logo_url :: String
                     , appid,playtime_2weeks,playtime_forever :: Int
@@ -63,7 +64,7 @@ data SteamGame = SG { name,img_icon_url,img_logo_url :: String
                  deriving (Generic, Show)
 
 getGameInfo :: SteamGame -> MediaInfo
-getGameInfo SG{..} = MediaInfo { url = unpack fullUrl, artPath = unpack fullArtPath }
+getGameInfo SG{..} = MediaInfo { url = unpack fullUrl, artPath = unpack fullArtPath, mediaName = name }
   where
     fullArtPath = sformat ("http://media.steampowered.com/steamcommunity/public/images/apps/"
                            % int % "/" % string % ".jpg")

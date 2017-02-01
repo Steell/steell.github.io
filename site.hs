@@ -80,7 +80,8 @@ postCtx =
 
 mediaCtx =
           field "artPath" (return . artPath . itemBody) <>
-          field "externalUrl" (return . url . itemBody)
+          field "externalUrl" (return . url . itemBody) <>
+          field "name" (return . mediaName . itemBody)
 
 (>>^) :: Monad m => (b -> m c) -> (c -> d) -> b -> m d
 k >>^ fn = \b -> return . fn =<< k b
