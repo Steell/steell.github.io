@@ -16,7 +16,11 @@ data MediaInfo = MediaInfo { url, artPath, mediaName :: String -- or something e
                            }
     deriving (Generic, Show)
 
+data Place = Place { latitude, longitude :: Float }
+  deriving (Generic, Show)
+
 data Stats = Stats { games,music :: [MediaInfo]
+                   , places :: [Place]
                    }
     deriving (Generic, Show)
 
@@ -26,5 +30,7 @@ instance FromJSON FitnessStats
 instance ToJSON FitnessStats
 instance FromJSON MediaInfo
 instance ToJSON MediaInfo
+instance FromJSON Place
+instance ToJSON Place
 instance FromJSON Stats
 instance ToJSON Stats

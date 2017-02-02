@@ -13,8 +13,10 @@ import           Control.Monad.Catch
 import           Data.Aeson
 import           Data.Aeson.Types ( parse )
 import qualified Data.ByteString.Lazy as B
+import           Data.List ( intercalate )
 import           Data.Maybe ( fromJust )
-import           Data.Text
+import           Data.Text hiding ( intercalate )
+import           Data.Time.Clock.POSIX ( getPOSIXTime )
 import           Data.Vector ( (!) )
 
 import           Formatting
@@ -33,7 +35,11 @@ newtype LastFmKey = LastFmKey { _lfmkey :: String }
   deriving (Generic, Show)
 makeClassy ''LastFmKey
 
-data APIs = APIs { _lastFm :: LastFmKey, _steam :: SteamKey }
+newtype FoursquareKey = FoursquareKey { _fskey :: String }
+  deriving (Generic, Show)
+makeClassy ''FoursquareKey
+
+data APIs = APIs { _lastFm :: LastFmKey, _steam :: SteamKey, _foursquare :: FoursquareKey }
           deriving (Generic, Show)
 makeClassy ''APIs
 
@@ -41,12 +47,16 @@ instance HasLastFmKey APIs where
   lastFmKey = lastFm . lastFmKey
 instance HasSteamKey APIs where
   steamKey = steam . steamKey
+instance HasFoursquareKey APIs where
+  foursquareKey = foursquare . foursquareKey
 
 instance FromJSON SteamKey
 instance FromJSON LastFmKey
+instance FromJSON FoursquareKey
 instance FromJSON APIs
 instance ToJSON SteamKey
 instance ToJSON LastFmKey
+instance ToJSON FoursquareKey
 instance ToJSON APIs
 
 newtype LFMAlbum = LFMAlbum { unwrapAlbum :: MediaInfo }
@@ -85,15 +95,19 @@ instance FromJSON SteamGame
 main :: IO ()
 main = do
     apiKeys <- fromJust . decode <$> B.readFile ".keys" :: IO APIs
-    (albumResult, gameResult) <- concurrently (runReaderT fetchRecentAlbums
-                                                          apiKeys)
-                                              (runReaderT fetchRecentGames
-                                                          apiKeys)
-    case (albumResult, gameResult) of
-        (Success albums, Success games) ->
+    (albumResult, gameResult, placeResult) <- runConcurrently $
+                                                  (,,) <$> Concurrently (runReaderT fetchRecentAlbums
+                                                                                    apiKeys)
+                                                       <*> Concurrently (runReaderT fetchRecentGames
+                                                                                    apiKeys)
+                                                       <*> Concurrently (runReaderT fetchRecentPlaces
+                                                                                    apiKeys)
+    case (albumResult, gameResult, placeResult) of
+        (Success albums, Success games, Success places) ->
             B.writeFile "stats.json" . encode $
-                Stats { music = albums, games = games }
-        _ -> printFailure albumResult >> printFailure gameResult
+                Stats { music = albums, games = games, places = places }
+        _ -> printFailure albumResult >> printFailure gameResult >>
+            printFailure placeResult
   where
     printFailure (Success _) =
         return ()
@@ -131,6 +145,35 @@ fetchRecentAlbums = do
     extract :: Object -> Result [MediaInfo]
     extract = parse $
         ((.: "topalbums") >=> (.: "album")) >>^ fmap unwrapAlbum
+
+----------------------
+
+newtype FSPlace = FSPlace { unwrapPlace :: Place }
+
+instance FromJSON FSPlace where
+    parseJSON (Object v) = do
+        loc <- v .: "venue" >>= (.: "location")
+        FSPlace <$> (Place <$> (loc .: "lat") <*> (loc .: "lng"))
+
+fetchRecentPlaces :: (HasFoursquareKey r, MonadReader r m, MonadIO m, MonadThrow m)
+                  => m (Result [Place])
+fetchRecentPlaces = url >>= liftIO . get >>= asJSON >>^ view responseBody >>^
+    extract
+  where
+    extract :: Object -> Result [Place]
+    extract = parse $
+      ((.: "response") >=> (.: "checkins") >=> (.: "items")) >>^ fmap unwrapPlace
+
+    url = mkUrl <$> (show . (subtract weekSecs) . round <$> liftIO getPOSIXTime)
+                <*> view fskey
+
+    mkUrl :: String -> String -> String
+    mkUrl time key = "https://api.foursquare.com/v2/users/self/checkins?"
+        ++ intercalate "&" [ "oauth_token=" ++ key, "afterTimestamp=" ++ time, "v=20170202" ]
+
+    weekSecs = 604800
+
+----------------------
 
 (>>^) :: Monad m => (b -> m c) -> (c -> d) -> b -> m d
 k >>^ fn = \b -> return . fn =<< k b

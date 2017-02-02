@@ -26,6 +26,7 @@ executable fetch-data
                   , vector
                   , mtl
                   , exceptions
+                  , time >= 1.5
   ghc-options:      -threaded
   default-language: Haskell2010
 

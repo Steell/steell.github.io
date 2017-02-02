@@ -53,11 +53,11 @@ main = hakyllWith (defaultConfiguration { deployCommand = "./deploy" }) $ do
         compile $ do
             posts <- recentFirst =<< loadAll "posts/*"
             stats <- fromJust . decode <$> loadBody "stats.json"
-            let indexCtx = listField "games"
-                                     mediaCtx
-                                     (mapM makeItem $ games stats) <>
+            let indexCtx =
+                    listField "games" mediaCtx (mapM makeItem $ games stats) <>
                     listField "albums" mediaCtx (mapM makeItem $ music stats) <>
                     listField "posts" postCtx (return posts) <>
+                    listField "places" placeCtx (mapM makeItem $ places stats) <>
                     defaultContext
 
             getResourceBody
@@ -82,6 +82,10 @@ mediaCtx =
           field "artPath" (return . artPath . itemBody) <>
           field "externalUrl" (return . url . itemBody) <>
           field "name" (return . mediaName . itemBody)
+
+placeCtx =
+  field "latitude" (return . show . latitude . itemBody) <>
+  field "longitude" (return . show . longitude . itemBody)
 
 (>>^) :: Monad m => (b -> m c) -> (c -> d) -> b -> m d
 k >>^ fn = \b -> return . fn =<< k b
