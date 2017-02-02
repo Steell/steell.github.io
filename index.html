@@ -99,6 +99,14 @@
   </ul>
 </div>
 
+<div id="places" class="section">
+    <section class="section-head">
+        <div id="line"><hr /></div>
+        <h3>haunts</h3>
+    </section>
+    <div id="map" style="height:300px;"></div>
+</div>
+
 <div id="games" class="section">
   <section class="section-head">
     <div id="line"><hr /></div>
@@ -170,6 +178,52 @@
 
   <p>…or you can find more in the <a href="./archive.html">archives</a>.</p>
 </div>
+
+<script>
+  function initMap() {
+
+  var cs = [
+  
+    {lat: 42.3953, lng: -71.11931},
+  
+    {lat: 42.392838, lng: -71.1138},
+  
+  ];
+
+  var map = new google.maps.Map(document.getElementById('map'), {
+    zoom: 4,
+    center: cs[0],
+    zoomControl: false,
+    scrollwheel: false,
+    draggable: false,
+    streetViewControl: false
+  });
+
+  var markers = cs.map(function(p) {
+    return new google.maps.Marker({
+      position: p,
+      map: map
+    });
+  });
+
+  var bounds = new google.maps.LatLngBounds();
+
+  for(i=0;i<markers.length;i++) {
+    bounds.extend(markers[i].getPosition());
+  }
+
+  //center the map to the geometric center of all markers
+  map.setCenter(bounds.getCenter());
+
+  google.maps.event.addListenerOnce(map, 'bounds_changed', function(event) {
+    if (this.getZoom() > 14) {
+      this.setZoom(14);
+    }
+  });
+  map.fitBounds(bounds);
+}
+</script>
+<script async defer src="https://maps.googleapis.com/maps/api/js?key=AIzaSyDEhMZLzxEkVqXycIjhGSPS3OdusERwgRI&callback=initMap"></script>
 
       </div>
 
