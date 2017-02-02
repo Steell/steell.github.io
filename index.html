@@ -90,8 +90,8 @@
 
     
         <li class="two columns">
-  <a title="Chris Clark - Body Riddle" href="https://www.last.fm/music/Chris+Clark/Body+Riddle">
-    <img class="u-max-full-width" src="https://lastfm-img2.akamaized.net/i/u/174s/b99590737bea4c2e905b92edbf6b42cb.png" alt="Chris Clark - Body Riddle" />
+  <a title="Dan Deacon - Gliss Riffer" href="https://www.last.fm/music/Dan+Deacon/Gliss+Riffer">
+    <img class="u-max-full-width" src="https://lastfm-img2.akamaized.net/i/u/174s/780289181e434cdacc257b55ff7234e2.png" alt="Dan Deacon - Gliss Riffer" />
   </a>
 </li>
 
@@ -184,9 +184,9 @@
 
   var cs = [
   
-    {lat: 42.3953, lng: -71.11931},
+    {coords: {lat: 42.3953, lng: -71.11931}, label: Burrito Place}
   
-    {lat: 42.392838, lng: -71.1138},
+    {coords: {lat: 42.392838, lng: -71.1138}, label: Salon / Barbershop}
   
   ];
 
@@ -201,8 +201,9 @@
 
   var markers = cs.map(function(p) {
     return new google.maps.Marker({
-      position: p,
-      map: map
+      position: p.coords,
+      map: map,
+      title: p.label
     });
   });
 
