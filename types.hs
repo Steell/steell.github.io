@@ -16,7 +16,9 @@ data MediaInfo = MediaInfo { url, artPath, mediaName :: String -- or something e
                            }
     deriving (Generic, Show)
 
-data Place = Place { latitude, longitude :: Float }
+data Place = Place { latitude, longitude :: Float
+                   , description :: String
+                   }
   deriving (Generic, Show)
 
 data Stats = Stats { games,music :: [MediaInfo]

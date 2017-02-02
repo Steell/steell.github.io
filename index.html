@@ -48,7 +48,7 @@ title: Home
 
   var cs = [
   $for(places)$
-    {lat: $latitude$, lng: $longitude$},
+    {coords: {lat: $latitude$, lng: $longitude$}, label: $description$}
   $endfor$
   ];
 
@@ -63,8 +63,9 @@ title: Home
 
   var markers = cs.map(function(p) {
     return new google.maps.Marker({
-      position: p,
-      map: map
+      position: p.coords,
+      map: map,
+      title: p.label
     });
   });
 

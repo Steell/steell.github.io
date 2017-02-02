@@ -85,7 +85,8 @@ mediaCtx =
 
 placeCtx =
   field "latitude" (return . show . latitude . itemBody) <>
-  field "longitude" (return . show . longitude . itemBody)
+  field "longitude" (return . show . longitude . itemBody) <>
+  field "description" (return . description . itemBody)
 
 (>>^) :: Monad m => (b -> m c) -> (c -> d) -> b -> m d
 k >>^ fn = \b -> return . fn =<< k b

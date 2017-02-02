@@ -149,11 +149,18 @@ fetchRecentAlbums = do
 ----------------------
 
 newtype FSPlace = FSPlace { unwrapPlace :: Place }
+mkFSPlace lat lng desc = FSPlace $ Place lat lng desc
 
 instance FromJSON FSPlace where
     parseJSON (Object v) = do
-        loc <- v .: "venue" >>= (.: "location")
-        FSPlace <$> (Place <$> (loc .: "lat") <*> (loc .: "lng"))
+        venue <- v .: "venue"
+        loc <- venue .: "location"
+        mkFSPlace <$> (loc .: "lat")
+                  <*> (loc .: "lng")
+                  <*> (venue .: "categories"
+                           >>= mapM (.: "name")
+                           >>^ intercalate ", ")
+
 
 fetchRecentPlaces :: (HasFoursquareKey r, MonadReader r m, MonadIO m, MonadThrow m)
                   => m (Result [Place])
