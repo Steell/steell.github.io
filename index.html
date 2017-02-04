@@ -62,13 +62,6 @@
 
     
         <li class="two columns">
-  <a title="Arcade Fire - Funeral" href="https://www.last.fm/music/Arcade+Fire/Funeral">
-    <img class="u-max-full-width" src="https://lastfm-img2.akamaized.net/i/u/174s/36157c4a4a9f4480beed9e2c86b588cf.png" alt="Arcade Fire - Funeral" />
-  </a>
-</li>
-
-    
-        <li class="two columns">
   <a title="Fleetwood Mac - Rumours" href="https://www.last.fm/music/Fleetwood+Mac/Rumours">
     <img class="u-max-full-width" src="https://lastfm-img2.akamaized.net/i/u/174s/8946375daa364644c638c3b484aacb9e.png" alt="Fleetwood Mac - Rumours" />
   </a>
@@ -90,8 +83,15 @@
 
     
         <li class="two columns">
-  <a title="Dan Deacon - Gliss Riffer" href="https://www.last.fm/music/Dan+Deacon/Gliss+Riffer">
-    <img class="u-max-full-width" src="https://lastfm-img2.akamaized.net/i/u/174s/780289181e434cdacc257b55ff7234e2.png" alt="Dan Deacon - Gliss Riffer" />
+  <a title="Amon Tobin - Permutation" href="https://www.last.fm/music/Amon+Tobin/Permutation">
+    <img class="u-max-full-width" src="https://lastfm-img2.akamaized.net/i/u/174s/7963978124c87b5120f9b2eff4a74228.png" alt="Amon Tobin - Permutation" />
+  </a>
+</li>
+
+    
+        <li class="two columns">
+  <a title="Disasterpeace - Fez" href="https://www.last.fm/music/Disasterpeace/Fez">
+    <img class="u-max-full-width" src="https://lastfm-img2.akamaized.net/i/u/174s/7a6567bb28924ee18ca7f8234db5d92c.png" alt="Disasterpeace - Fez" />
   </a>
 </li>
 
@@ -184,6 +184,12 @@
 
   var cs = [
   
+    {coords: {lat: 42.36458, lng: -71.08302}, label: "American Restaurant"},
+  
+    {coords: {lat: 42.36306, lng: -71.08704}, label: "Coffee Shop"},
+  
+    {coords: {lat: 42.38167, lng: -71.10607}, label: "Climbing Gym"},
+  
     {coords: {lat: 42.3953, lng: -71.11931}, label: "Burrito Place"},
   
     {coords: {lat: 42.392838, lng: -71.1138}, label: "Salon / Barbershop"},
@@ -195,6 +201,12 @@
     center: cs[0].coords,
     scrollwheel: false,
     streetViewControl: false
+  });
+    
+  google.maps.event.addDomListener(window, "resize", function() {
+    var center = map.getCenter();
+    google.maps.event.trigger(map, "resize");
+    map.setCenter(center); 
   });
 
   var markers = cs.map(function(p) {
