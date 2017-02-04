@@ -58,11 +58,11 @@ title: Home
     scrollwheel: false,
     streetViewControl: false
   });
-    
+
   google.maps.event.addDomListener(window, "resize", function() {
     var center = map.getCenter();
     google.maps.event.trigger(map, "resize");
-    map.setCenter(center); 
+    map.setCenter(center);
   });
 
   var markers = cs.map(function(p) {
