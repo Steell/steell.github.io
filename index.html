@@ -136,13 +136,6 @@
 
     
         <li class="two columns">
-  <a title="Dota 2" href="https://store.steampowered.com/app/570">
-    <img class="u-max-full-width" src="http://media.steampowered.com/steamcommunity/public/images/apps/570/d4f836839254be08d8e9dd333ecc9a01782c26d2.jpg" alt="Dota 2" />
-  </a>
-</li>
-
-    
-        <li class="two columns">
   <a title="Golf With Your Friends" href="https://store.steampowered.com/app/431240">
     <img class="u-max-full-width" src="http://media.steampowered.com/steamcommunity/public/images/apps/431240/2010132cceeb0c149f47af6770952befd126fe9a.jpg" alt="Golf With Your Friends" />
   </a>
@@ -184,6 +177,8 @@
 
   var cs = [
   
+    {coords: {lat: 42.39671, lng: -71.104}, label: "Bar"},
+  
     {coords: {lat: 42.36458, lng: -71.08302}, label: "American Restaurant"},
   
     {coords: {lat: 42.36306, lng: -71.08704}, label: "Coffee Shop"},
@@ -202,11 +197,11 @@
     scrollwheel: false,
     streetViewControl: false
   });
-    
+
   google.maps.event.addDomListener(window, "resize", function() {
     var center = map.getCenter();
     google.maps.event.trigger(map, "resize");
-    map.setCenter(center); 
+    map.setCenter(center);
   });
 
   var markers = cs.map(function(p) {
