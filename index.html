@@ -76,13 +76,6 @@
 
     
         <li class="two columns">
-  <a title="Broken Social Scene - You Forgot It In People" href="https://www.last.fm/music/Broken+Social+Scene/You+Forgot+It+In+People">
-    <img class="u-max-full-width" src="https://lastfm-img2.akamaized.net/i/u/174s/079b5b18a07b4ab793d190ccf6167e9c.png" alt="Broken Social Scene - You Forgot It In People" />
-  </a>
-</li>
-
-    
-        <li class="two columns">
   <a title="Car Seat Headrest - Teens Of Denial" href="https://www.last.fm/music/Car+Seat+Headrest/Teens+Of+Denial">
     <img class="u-max-full-width" src="https://lastfm-img2.akamaized.net/i/u/174s/6151e00c38b0175c5d126880e13dcb5c.png" alt="Car Seat Headrest - Teens Of Denial" />
   </a>
@@ -90,8 +83,15 @@
 
     
         <li class="two columns">
-  <a title="Vampire Weekend - Contra" href="https://www.last.fm/music/Vampire+Weekend/Contra">
-    <img class="u-max-full-width" src="https://lastfm-img2.akamaized.net/i/u/174s/f60b0691b7294dbd8c300b36276576e7.png" alt="Vampire Weekend - Contra" />
+  <a title="The Seatbelts - Cowboy Bebop" href="https://www.last.fm/music/The+Seatbelts/Cowboy+Bebop">
+    <img class="u-max-full-width" src="https://lastfm-img2.akamaized.net/i/u/174s/46f5d9094b004f9a993b5631ac7e84ab.png" alt="The Seatbelts - Cowboy Bebop" />
+  </a>
+</li>
+
+    
+        <li class="two columns">
+  <a title="Phil Collins - No Jacket Required (Deluxe Edition)" href="https://www.last.fm/music/Phil+Collins/No+Jacket+Required+(Deluxe+Edition)">
+    <img class="u-max-full-width" src="https://lastfm-img2.akamaized.net/i/u/174s/38240e594d7056d1fb5a5029775193fb.png" alt="Phil Collins - No Jacket Required (Deluxe Edition)" />
   </a>
 </li>
 
@@ -105,6 +105,19 @@
         <h3>haunts</h3>
     </section>
     <div id="map" style="height:300px;"></div>
+    <div class="row category-stats">
+      
+        <span class="category-color" style="width:28.57142857142857%;background-color:#ee9729;"></span>
+      
+        <span class="category-color" style="width:28.57142857142857%;background-color:#2969ee;"></span>
+      
+        <span class="category-color" style="width:14.285714285714285%;background-color:#dab44b;"></span>
+      
+        <span class="category-color" style="width:14.285714285714285%;background-color:#2e1caf;"></span>
+      
+        <span class="category-color" style="width:14.285714285714285%;background-color:#6175c2;"></span>
+      
+    </div>
 </div>
 
 <div id="games" class="section">
@@ -177,21 +190,19 @@
 
   var cs = [
   
-    {coords: {lat: 40.8406, lng: -73.28821}, label: "Bagel Shop"},
+    {coords: {lat: 42.36306, lng: -71.08704}, label: "Coffee Shop", color: "#ee9729"},
   
-    {coords: {lat: 42.36306, lng: -71.08704}, label: "Coffee Shop"},
+    {coords: {lat: 42.36306, lng: -71.08704}, label: "Coffee Shop", color: "#ee9729"},
   
-    {coords: {lat: 42.395176, lng: -71.122284}, label: "BBQ Joint"},
+    {coords: {lat: 40.8406, lng: -73.28821}, label: "Bagel Shop", color: "#2969ee"},
   
-    {coords: {lat: 42.38167, lng: -71.10607}, label: "Climbing Gym"},
+    {coords: {lat: 40.79878, lng: -73.41315}, label: "Bagel Shop", color: "#2969ee"},
   
-    {coords: {lat: 42.395653, lng: -71.1228}, label: "Soba Restaurant"},
+    {coords: {lat: 42.395653, lng: -71.1228}, label: "Soba Restaurant", color: "#dab44b"},
   
-    {coords: {lat: 42.36306, lng: -71.08704}, label: "Coffee Shop"},
+    {coords: {lat: 40.82226, lng: -73.41017}, label: "Shopping Mall", color: "#2e1caf"},
   
-    {coords: {lat: 42.389748, lng: -71.118095}, label: "Grocery Store"},
-  
-    {coords: {lat: 42.38167, lng: -71.10607}, label: "Climbing Gym"},
+    {coords: {lat: 42.38167, lng: -71.10607}, label: "Climbing Gym", color: "#6175c2"},
   
   ];
 
@@ -209,11 +220,13 @@
   });
 
   var markers = cs.map(function(p) {
-    return new google.maps.Marker({
+    var marker = new google.maps.Marker({
       position: p.coords,
       map: map,
       title: p.label
     });
+    marker.icon.strokeColor = p.color;
+    return marker;
   });
 
   var bounds = new google.maps.LatLngBounds();

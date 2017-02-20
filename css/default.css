@@ -33,6 +33,16 @@
     align-items: center;
 }
 
+.category-stats {
+    height: 10px;
+}
+
+.category-stats .category-color {
+    float: left;
+    display: inline-block;
+    height: 100%;
+}
+
 div#line {
     flex-grow: 1;
     margin-right: 25px;
