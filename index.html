@@ -107,15 +107,15 @@
     <div id="map" style="height:300px;"></div>
     <div class="row category-stats">
       
-        <span class="category-color" style="width:28.57142857142857%;background-color:#ee9729;"></span>
+        <span class="category-color" style="width:28.57142857142857%;background-color:#5241be;"></span>
       
-        <span class="category-color" style="width:28.57142857142857%;background-color:#2969ee;"></span>
+        <span class="category-color" style="width:28.57142857142857%;background-color:#bea141;"></span>
       
-        <span class="category-color" style="width:14.285714285714285%;background-color:#dab44b;"></span>
+        <span class="category-color" style="width:14.285714285714285%;background-color:#8356b1;"></span>
       
-        <span class="category-color" style="width:14.285714285714285%;background-color:#2e1caf;"></span>
+        <span class="category-color" style="width:14.285714285714285%;background-color:#8a892d;"></span>
       
-        <span class="category-color" style="width:14.285714285714285%;background-color:#6175c2;"></span>
+        <span class="category-color" style="width:14.285714285714285%;background-color:#a39267;"></span>
       
     </div>
 </div>
@@ -190,19 +190,19 @@
 
   var cs = [
   
-    {coords: {lat: 42.36306, lng: -71.08704}, label: "Coffee Shop", color: "#ee9729"},
+    {coords: {lat: 42.36306, lng: -71.08704}, label: "Coffee Shop", color: "#5241be"},
   
-    {coords: {lat: 42.36306, lng: -71.08704}, label: "Coffee Shop", color: "#ee9729"},
+    {coords: {lat: 42.36306, lng: -71.08704}, label: "Coffee Shop", color: "#5241be"},
   
-    {coords: {lat: 40.8406, lng: -73.28821}, label: "Bagel Shop", color: "#2969ee"},
+    {coords: {lat: 40.8406, lng: -73.28821}, label: "Bagel Shop", color: "#bea141"},
   
-    {coords: {lat: 40.79878, lng: -73.41315}, label: "Bagel Shop", color: "#2969ee"},
+    {coords: {lat: 40.79878, lng: -73.41315}, label: "Bagel Shop", color: "#bea141"},
   
-    {coords: {lat: 42.395653, lng: -71.1228}, label: "Soba Restaurant", color: "#dab44b"},
+    {coords: {lat: 42.395653, lng: -71.1228}, label: "Soba Restaurant", color: "#8356b1"},
   
-    {coords: {lat: 40.82226, lng: -73.41017}, label: "Shopping Mall", color: "#2e1caf"},
+    {coords: {lat: 40.82226, lng: -73.41017}, label: "Shopping Mall", color: "#8a892d"},
   
-    {coords: {lat: 42.38167, lng: -71.10607}, label: "Climbing Gym", color: "#6175c2"},
+    {coords: {lat: 42.38167, lng: -71.10607}, label: "Climbing Gym", color: "#a39267"},
   
   ];
 
@@ -220,13 +220,14 @@
   });
 
   var markers = cs.map(function(p) {
-    var marker = new google.maps.Marker({
-      position: p.coords,
-      map: map,
-      title: p.label
-    });
-    marker.icon.strokeColor = p.color;
-    return marker;
+      return new google.maps.Marker({
+          position: p.coords,
+          map: map,
+          title: p.label,
+          icon: {
+              strokeColor: p.color
+          }
+      });
   });
 
   var bounds = new google.maps.LatLngBounds();
