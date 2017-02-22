@@ -69,6 +69,13 @@
 
     
         <li class="two columns">
+  <a title="The Seatbelts - Cowboy Bebop" href="https://www.last.fm/music/The+Seatbelts/Cowboy+Bebop">
+    <img class="u-max-full-width" src="https://lastfm-img2.akamaized.net/i/u/174s/46f5d9094b004f9a993b5631ac7e84ab.png" alt="The Seatbelts - Cowboy Bebop" />
+  </a>
+</li>
+
+    
+        <li class="two columns">
   <a title="Boards of Canada - Music Has the Right to Children" href="https://www.last.fm/music/Boards+of+Canada/Music+Has+the+Right+to+Children">
     <img class="u-max-full-width" src="https://lastfm-img2.akamaized.net/i/u/174s/0bb566f53e9f4cbfccf926acd7371183.png" alt="Boards of Canada - Music Has the Right to Children" />
   </a>
@@ -83,15 +90,8 @@
 
     
         <li class="two columns">
-  <a title="The Seatbelts - Cowboy Bebop" href="https://www.last.fm/music/The+Seatbelts/Cowboy+Bebop">
-    <img class="u-max-full-width" src="https://lastfm-img2.akamaized.net/i/u/174s/46f5d9094b004f9a993b5631ac7e84ab.png" alt="The Seatbelts - Cowboy Bebop" />
-  </a>
-</li>
-
-    
-        <li class="two columns">
-  <a title="Phil Collins - No Jacket Required (Deluxe Edition)" href="https://www.last.fm/music/Phil+Collins/No+Jacket+Required+(Deluxe+Edition)">
-    <img class="u-max-full-width" src="https://lastfm-img2.akamaized.net/i/u/174s/38240e594d7056d1fb5a5029775193fb.png" alt="Phil Collins - No Jacket Required (Deluxe Edition)" />
+  <a title="Grizzly Bear - Veckatimest" href="https://www.last.fm/music/Grizzly+Bear/Veckatimest">
+    <img class="u-max-full-width" src="https://lastfm-img2.akamaized.net/i/u/174s/b8a67a690bfc441980376d9147f28202.png" alt="Grizzly Bear - Veckatimest" />
   </a>
 </li>
 
@@ -107,15 +107,15 @@
     <div id="map" style="height:300px;"></div>
     <div class="row category-stats">
       
-        <span class="category-color" style="width:28.57142857142857%;background-color:#d77f4d;"></span>
+        <span class="category-color" style="width:33.33333333333333%;background-color:#ce42d3;"></span>
       
-        <span class="category-color" style="width:28.57142857142857%;background-color:#4dbfd7;"></span>
+        <span class="category-color" style="width:16.666666666666664%;background-color:#a3d342;"></span>
       
-        <span class="category-color" style="width:14.285714285714285%;background-color:#c69c5d;"></span>
+        <span class="category-color" style="width:16.666666666666664%;background-color:#c35776;"></span>
       
-        <span class="category-color" style="width:14.285714285714285%;background-color:#37469d;"></span>
+        <span class="category-color" style="width:16.666666666666664%;background-color:#339b2e;"></span>
       
-        <span class="category-color" style="width:14.285714285714285%;background-color:#6aa3b2;"></span>
+        <span class="category-color" style="width:16.666666666666664%;background-color:#93b067;"></span>
       
     </div>
 </div>
@@ -126,6 +126,13 @@
     <h3>distractions</h3>
   </section>
   <ul class="row">
+    
+        <li class="two columns">
+  <a title="7 Days to Die" href="https://store.steampowered.com/app/251570">
+    <img class="u-max-full-width" src="http://media.steampowered.com/steamcommunity/public/images/apps/251570/31488b068ae8975a942c8c5170b3266c1bf9a526.jpg" alt="7 Days to Die" />
+  </a>
+</li>
+
     
         <li class="two columns">
   <a title="The Binding of Isaac: Rebirth" href="https://store.steampowered.com/app/250900">
@@ -190,19 +197,17 @@
 
   var cs = [
   
-    {coords: {lat: 42.36306, lng: -71.08704}, label: "Coffee Shop", color: "#d77f4d"},
+    {coords: {lat: 40.8406, lng: -73.28821}, label: "Bagel Shop", color: "#ce42d3"},
   
-    {coords: {lat: 42.36306, lng: -71.08704}, label: "Coffee Shop", color: "#d77f4d"},
+    {coords: {lat: 40.79878, lng: -73.41315}, label: "Bagel Shop", color: "#ce42d3"},
   
-    {coords: {lat: 40.8406, lng: -73.28821}, label: "Bagel Shop", color: "#4dbfd7"},
+    {coords: {lat: 42.395653, lng: -71.1228}, label: "Soba Restaurant", color: "#a3d342"},
   
-    {coords: {lat: 40.79878, lng: -73.41315}, label: "Bagel Shop", color: "#4dbfd7"},
+    {coords: {lat: 40.82226, lng: -73.41017}, label: "Shopping Mall", color: "#c35776"},
   
-    {coords: {lat: 42.395653, lng: -71.1228}, label: "Soba Restaurant", color: "#c69c5d"},
+    {coords: {lat: 42.36304, lng: -71.0871}, label: "Office", color: "#339b2e"},
   
-    {coords: {lat: 40.82226, lng: -73.41017}, label: "Shopping Mall", color: "#37469d"},
-  
-    {coords: {lat: 42.38167, lng: -71.10607}, label: "Climbing Gym", color: "#6aa3b2"},
+    {coords: {lat: 42.36306, lng: -71.08704}, label: "Coffee Shop", color: "#93b067"},
   
   ];
 
@@ -223,11 +228,7 @@
       return new google.maps.Marker({
           position: p.coords,
           map: map,
-          title: p.label,
-          icon: {
-              path: google.maps.SymbolPath.FORWARD_CLOSED_ARROW,
-              strokeColor: p.color
-          }
+          title: p.label
       });
   });
 
